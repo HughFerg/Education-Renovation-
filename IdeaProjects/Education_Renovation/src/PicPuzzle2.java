@@ -2,11 +2,12 @@
  * Created by hughferguson on 5/27/17.
  */
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -16,12 +17,10 @@ import javax.swing.JLabel;
 
 class PicPuzzle2 extends JFrame implements ActionListener{
 
-    JButton b1,b2,b3,b4,b5,b6,b7,b8,b9,sample,starB;
+    HashMap<JButton, Icon> map = new HashMap<>(); //hashmap for buttons and corresponding icons
 
-    Icon star;
-    Icon ic0=new ImageIcon("pic/starB0.jpg");
-    Icon ic10=new ImageIcon("pic/starB10.jpg");
-    Icon ic20=new ImageIcon("pic/starB20.jpg");
+    JButton b1,b2,b3,b4,b5,b6,b7,b8,b9,sample;
+
     Icon samicon1=new ImageIcon("images/Wiki Picture.jpeg");
     Icon samicon2=new ImageIcon("pic/main2.jpg");
     Icon samicon3=new ImageIcon("pic/main3.jpg");
@@ -37,61 +36,79 @@ class PicPuzzle2 extends JFrame implements ActionListener{
     Icon ic8=new ImageIcon("images/Wiki Picture [www.imagesplitter.net]-2-1.jpeg");
     Icon ic9=new ImageIcon("images/Wiki Picture [www.imagesplitter.net]-2-2.jpeg");
 
-/*
-Icon ic11=new ImageIcon("pic/12.jpg");
-Icon ic12=new ImageIcon("pic/13.jpg");
-Icon ic13=new ImageIcon("pic/16.jpg");
-Icon ic14=new ImageIcon("pic/11.jpg");
-Icon ic15=new ImageIcon("pic/14.jpg");
-Icon ic16=new ImageIcon("pic/19.jpg");
-Icon ic17=new ImageIcon("pic/17.jpg");
-Icon ic18=new ImageIcon("pic/15.jpg");
-Icon ic19=new ImageIcon("pic/18.jpg");
+   private Icon[] iconList = {ic1,ic2,ic3,ic4,ic5,ic6,ic7,ic8,ic9};        //creating array of icons to be randomized
 
-Icon ic21=new ImageIcon("pic/24.jpg");
-Icon ic22=new ImageIcon("pic/25.jpg");
-Icon ic23=new ImageIcon("pic/21.jpg");
-Icon ic24=new ImageIcon("pic/27.jpg");
-Icon ic25=new ImageIcon("pic/23.jpg");
-Icon ic26=new ImageIcon("pic/29.jpg");
-Icon ic27=new ImageIcon("pic/28.jpg");
-Icon ic28=new ImageIcon("pic/22.jpg");
-Icon ic29=new ImageIcon("pic/26.jpg");
-*/
+    private ArrayList<Integer> intsToBeRandomized = new ArrayList<>();
+
+    private int[] startPos = new int[8];        //the order in which images will be displayed
 
     PicPuzzle2(){
 
         super("Pic Puzzle");
 
-        b1=new JButton(ic1);
+        for (int a = 0; a < 9; a ++){
+            intsToBeRandomized.add(a);
+        }
+
+        Collections.shuffle(intsToBeRandomized);            //creates random order of pictures to be assigned to buttons
+
+        b1=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
+        intsToBeRandomized.remove(0);
         b1.setBounds(10,80,100,100);
-        b2=new JButton(ic2);
+        b1.putClientProperty("Position", new Point(0,0));
+
+        b2=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
+        intsToBeRandomized.remove(0);
         b2.setBounds(110,80,100,100);
-        b3=new JButton(ic3);
+
+        b3=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
+        intsToBeRandomized.remove(0);
         b3.setBounds(210,80,100,100);
-        b4=new JButton(ic4);
+
+        b4=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
+        intsToBeRandomized.remove(0);
         b4.setBounds(10,180,100,100);
-        b5=new JButton(ic5);
+
+        b5=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
+        intsToBeRandomized.remove(0);
         b5.setBounds(110,180,100,100);
-        b6=new JButton(ic6);
+
+        b6=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
+        intsToBeRandomized.remove(0);
         b6.setBounds(210,180,100,100);
-        b7=new JButton(ic7);
+
+        b7=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
+        intsToBeRandomized.remove(0);
         b7.setBounds(10,280,100,100);
-        b8=new JButton(ic8);
+
+        b8=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
+        intsToBeRandomized.remove(0);
         b8.setBounds(110,280,100,100);
-        b9=new JButton(ic9);
+
+        b9=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
+        intsToBeRandomized.remove(0);
         b9.setBounds(210,280,100,100);
+
         sample=new JButton(samicon1);
         sample.setBounds(380,100,200,200);
 
-        JLabel l1=new JLabel("Original:");			//creates label for original picture
+        map.put(b1,ic1);                    //instantiating hashmap with Buttons and corresponding Icons
+        map.put(b2,ic2);
+        map.put(b3,ic3);
+        map.put(b4,ic4);
+        map.put(b5,ic5);
+        map.put(b6,ic6);
+        map.put(b7,ic7);
+        map.put(b8,ic8);
+        map.put(b9,ic9);
+
+
+        JLabel l1=new JLabel("Original: ");			//creates label for original picture
         l1.setBounds(330,200,70,20);
 
         JLabel l3=new JLabel("Click for next picture");		//creates label under original picture
         l3.setBounds(380,320,200,20);
         l3.setForeground(Color.red);
-
-        star=b9.getIcon();
 
         add(b1);add(b2);add(b3);add(b4);add(b5);add(b6);add(b7);add(b8);
         add(b9);add(sample);add(l1);add(l3);
@@ -118,6 +135,8 @@ Icon ic29=new ImageIcon("pic/26.jpg");
 
 
     public void actionPerformed(ActionEvent e){
+
+        /*
 
         if(e.getSource()==b1){
             Icon s1=b1.getIcon();
@@ -290,10 +309,15 @@ b9.setIcon(ic29);
 star=b6.getIcon();
 starB.setIcon(ic20);
 }//if else
-*/
+
 
         }
+        */
     }//end of actionPerformed
+
+    public boolean gameWon(HashMap a){
+return true;
+    }
 
     public static void main(String args[]){
         new PicPuzzle2();
