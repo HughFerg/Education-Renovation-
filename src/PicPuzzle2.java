@@ -38,9 +38,17 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
    private Icon[] iconList = {ic1,ic2,ic3,ic4,ic5,ic6,ic7,ic8,ic9};        //creating array of icons to be randomized
 
-    private ArrayList<Integer> intsToBeRandomized = new ArrayList<>();
+    private ArrayList<Integer> intsToBeRandomized = new ArrayList<>();      //list of all ints 0-8 to be shuffled
 
-    private int[] startPos = new int[8];        //the order in which images will be displayed
+    private int[] startPos = new int[8];        //the order in which images will be displayed at game start
+
+    boolean firstClick = true;       //value of true if no previous clicks, false if second click(swapping 2 images)
+
+    private ArrayList<JButton> buttonList = new ArrayList<>();      //list of all buttons in order
+
+    Icon tempIcon = new ImageIcon();        //temp Icon to be swapped
+
+    String tempButton = "";         //temp String to hold which button has been clicked
 
     PicPuzzle2(){
 
@@ -113,12 +121,19 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         add(b1);add(b2);add(b3);add(b4);add(b5);add(b6);add(b7);add(b8);
         add(b9);add(sample);add(l1);add(l3);
 
+        buttonList.add(b1);buttonList.add(b2);buttonList.add(b3);buttonList.add(b4);buttonList.add(b5);buttonList.add(b6);buttonList.add(b7);buttonList.add(b8);
+        buttonList.add(b9);      //adds all buttons to list of buttons
 
-        b1.addActionListener(this); b2.addActionListener(this);
-        b3.addActionListener(this); b4.addActionListener(this);
-        b5.addActionListener(this); b6.addActionListener(this);
-        b7.addActionListener(this); b8.addActionListener(this);
-        b9.addActionListener(this);
+
+        b1.addActionListener(this); b1.setActionCommand("0");
+        b2.addActionListener(this); b2.setActionCommand("1");
+        b3.addActionListener(this); b3.setActionCommand("2");
+        b4.addActionListener(this); b4.setActionCommand("3");
+        b5.addActionListener(this); b5.setActionCommand("4");
+        b6.addActionListener(this); b6.setActionCommand("5");
+        b7.addActionListener(this); b7.setActionCommand("6");
+        b8.addActionListener(this); b8.setActionCommand("7");
+        b9.addActionListener(this); b9.setActionCommand("8");
 
         sample.addActionListener(this);
         setLayout(null);
@@ -129,12 +144,31 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         setLocation((((int) dem.getWidth())/2 - 300), (((int) dem.getHeight())/2 - 250));       //sets frame location to middle of screen
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
 //-------------------------GAME OPERATIONS------------------------\\
 
 
     public void actionPerformed(ActionEvent e){
+        if (firstClick){
+
+            tempButton = e.getActionCommand();          //sets tempButton to string representation of button clicked
+
+            tempIcon = buttonList.get(Integer.valueOf(e.getActionCommand())).getIcon();         //sets tempIcon as icon of clicked button
+
+            firstClick = false;
+
+        }
+        else{               //on second click- has to swap the 2 images
+
+            buttonList.get(Integer.valueOf(tempButton)).setIcon(buttonList.get(Integer.valueOf(e.getActionCommand())).getIcon());        //changes first button's icon into second button's icon
+
+            buttonList.get(Integer.valueOf(e.getActionCommand())).setIcon(tempIcon);            //changes second button's icon into temp icon (first button's icon)
+
+            firstClick = true;
+        }
+
 
         /*
 
