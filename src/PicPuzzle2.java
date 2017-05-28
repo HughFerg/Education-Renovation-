@@ -17,7 +17,8 @@ import javax.swing.JLabel;
 
 class PicPuzzle2 extends JFrame implements ActionListener{
 
-    HashMap<JButton, Icon> map = new HashMap<>(); //hashmap for buttons and corresponding icons
+    static HashMap<JButton, Icon> correctMap = new HashMap<>(); //hashmap for buttons and corresponding icons
+    static HashMap<JButton, Icon> userMap = new HashMap<>(); //hashmap for user's screen
 
     JButton b1,b2,b3,b4,b5,b6,b7,b8,b9,sample;
 
@@ -40,7 +41,7 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
     private ArrayList<Integer> intsToBeRandomized = new ArrayList<>();      //list of all ints 0-8 to be shuffled
 
-    private int[] startPos = new int[8];        //the order in which images will be displayed at game start
+    private int[] startPos = new int[9];        //the order in which images will be displayed at game start
 
     boolean firstClick = true;       //value of true if no previous clicks, false if second click(swapping 2 images)
 
@@ -54,7 +55,7 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
         super("Pic Puzzle");
 
-        for (int a = 0; a < 9; a ++){
+        for (int a = 0; a < 9; a ++){           //puts ints in order in array "intsToBeRandomized"
             intsToBeRandomized.add(a);
         }
 
@@ -64,51 +65,67 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         intsToBeRandomized.remove(0);
         b1.setBounds(10,80,100,100);
         b1.putClientProperty("Position", new Point(0,0));
+        userMap.put(b1, iconList[intsToBeRandomized.get(0)]);
 
         b2=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
         intsToBeRandomized.remove(0);
         b2.setBounds(110,80,100,100);
+        userMap.put(b2, iconList[intsToBeRandomized.get(0)]);
+
 
         b3=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
         intsToBeRandomized.remove(0);
         b3.setBounds(210,80,100,100);
+        userMap.put(b3, iconList[intsToBeRandomized.get(0)]);
+
 
         b4=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
         intsToBeRandomized.remove(0);
         b4.setBounds(10,180,100,100);
+        userMap.put(b4, iconList[intsToBeRandomized.get(0)]);
+
 
         b5=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
         intsToBeRandomized.remove(0);
         b5.setBounds(110,180,100,100);
+        userMap.put(b5, iconList[intsToBeRandomized.get(0)]);
+
 
         b6=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
         intsToBeRandomized.remove(0);
         b6.setBounds(210,180,100,100);
+        userMap.put(b6, iconList[intsToBeRandomized.get(0)]);
+
 
         b7=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
         intsToBeRandomized.remove(0);
         b7.setBounds(10,280,100,100);
+        userMap.put(b7, iconList[intsToBeRandomized.get(0)]);
 
         b8=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
         intsToBeRandomized.remove(0);
         b8.setBounds(110,280,100,100);
+        userMap.put(b8, iconList[intsToBeRandomized.get(0)]);
+
 
         b9=new JButton(iconList[intsToBeRandomized.get(0)]);        //assigns first number picture to first button then removes it to avoid repeats
         intsToBeRandomized.remove(0);
         b9.setBounds(210,280,100,100);
+        userMap.put(b9, ic9);       //SHOULD NOT BE AUTOMATICALLY ASSIGNED CORRECTLY- RECIEVED OUTOFBOUNDS ERROR WHEN TRIED TO PUT AS LAST RANDOM INT
+
 
         sample=new JButton(samicon1);
         sample.setBounds(380,100,200,200);
 
-        map.put(b1,ic1);                    //instantiating hashmap with Buttons and corresponding Icons
-        map.put(b2,ic2);
-        map.put(b3,ic3);
-        map.put(b4,ic4);
-        map.put(b5,ic5);
-        map.put(b6,ic6);
-        map.put(b7,ic7);
-        map.put(b8,ic8);
-        map.put(b9,ic9);
+        correctMap.put(b1,ic1);                    //instantiating hashmap with Buttons and corresponding Icons
+        correctMap.put(b2,ic2);
+        correctMap.put(b3,ic3);
+        correctMap.put(b4,ic4);
+        correctMap.put(b5,ic5);
+        correctMap.put(b6,ic6);
+        correctMap.put(b7,ic7);
+        correctMap.put(b8,ic8);
+        correctMap.put(b9,ic9);
 
 
         JLabel l1=new JLabel("Original: ");			//creates label for original picture
@@ -151,6 +168,7 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
 
     public void actionPerformed(ActionEvent e){
+
         if (firstClick){
 
             tempButton = e.getActionCommand();          //sets tempButton to string representation of button clicked
@@ -166,16 +184,32 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
             buttonList.get(Integer.valueOf(e.getActionCommand())).setIcon(tempIcon);            //changes second button's icon into temp icon (first button's icon)
 
-            firstClick = true;
+            firstClick = true;  //resets click
+
+            userMap.put(buttonList.get(Integer.valueOf(e.getActionCommand())), buttonList.get(Integer.valueOf(e.getActionCommand())).getIcon());        //updates user hashmap with swapped icon
+
+            userMap.put(buttonList.get(Integer.valueOf(tempButton)), buttonList.get(Integer.valueOf(e.getActionCommand())).getIcon());
+
         }
 
     }//end of actionPerformed
 
-    public boolean gameWon(HashMap a){
-return true;
+    public static boolean gameWon(){
+        if (userMap.equals(correctMap)) return true;            //checks if buttons are properly matched with correct images
+        else return false;
+    }
+
+    public static void ifWon (){               //displays winning screen if game is won
+        System.out.print("wooooooo");
     }
 
     public static void main(String args[]){
+
+        if (gameWon()){
+            ifWon();
+        }
         new PicPuzzle2();
+
+
     }//end of main
 }//end of class
