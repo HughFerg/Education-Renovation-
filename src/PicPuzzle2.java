@@ -9,11 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 class PicPuzzle2 extends JFrame implements ActionListener{
 
@@ -50,6 +46,9 @@ class PicPuzzle2 extends JFrame implements ActionListener{
     Icon tempIcon = new ImageIcon();        //temp Icon to be swapped
 
     String tempButton = "";         //temp String to hold which button has been clicked
+
+    static JFrame win = new JFrame("Good Win!"); //widow that appears when user wins game
+
 
     PicPuzzle2(){
 
@@ -162,6 +161,18 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //------------------------WINDOW THAT APPEARS WHEN USER WINS GAME----------------------\\
+        win.setSize(300,300);
+        win.setLocation((((int) dem.getWidth())/2 - 150), (((int) dem.getHeight())/2 - 150));        //sets size and orientation of victory JFrame
+
+        JLabel winText = new JLabel("WOOOOO");
+        win.add(winText);
+        winText.setHorizontalAlignment(SwingConstants.CENTER);
+
+        win.toFront();
+        win.setAlwaysOnTop(true);
+        win.setVisible(false);
+
     }
 
 //-------------------------GAME OPERATIONS------------------------\\
@@ -198,15 +209,11 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         if (userMap.equals(correctMap)) return true;            //checks if buttons are properly matched with correct images
         else return false;
     }
-
-    public static void ifWon (){               //displays winning screen if game is won
-        System.out.print("wooooooo");
-    }
-
+    
     public static void main(String args[]){
 
         if (gameWon()){
-            ifWon();
+            win.setVisible(true);
         }
         new PicPuzzle2();
 
