@@ -162,7 +162,6 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         //------------------------WINDOW THAT APPEARS WHEN USER WINS GAME----------------------\\
 
         win.setVisible(true);
@@ -179,15 +178,11 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
         win.toFront();
         win.setAlwaysOnTop(true);
-
     }
 
 //-------------------------GAME OPERATIONS------------------------\\
 
-
     public void actionPerformed(ActionEvent e){
-
-        System.out.println(userMap.keySet().toArray()[0]);  //TEST
 
         if (firstClick){
 
@@ -215,8 +210,10 @@ class PicPuzzle2 extends JFrame implements ActionListener{
     }//end of actionPerformed
 
     public static boolean gameWon(){            //if user has finished puzzle correctly
+
         if (userMap.values().toArray() == correctMap.values().toArray()) return true;
         else return false;
+
     }
 
     public static void main(String args[]){
@@ -226,13 +223,11 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         if (!gameWon()){
 
             win.setVisible(false);
-
         }
 
         else win.setVisible(true);
 
 
-
-
     }//end of main
+
 }//end of class
