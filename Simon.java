@@ -33,7 +33,7 @@ public class Simon extends JFrame implements ActionListener{
 	    		title.setBackground(Color.cyan);
 	    		title.setOpaque(true);
 	    		title.setFont(new Font("Arial", Font.BOLD, 30));
-	    	JLabel color = new JLabel("Colors go here", SwingConstants.CENTER);
+	    	JLabel color = new JLabel();
 	    	 	color.setBackground(Color.gray);
 	    		color.setOpaque(true);
 	    		color.setFont(new Font("Arial", Font.ITALIC, 30));
@@ -103,67 +103,103 @@ public class Simon extends JFrame implements ActionListener{
 		    
  
 	    	do{
-		    	for (int i = 0; i >= 0; i++){ //sets level
-		    		score = i;
+	    		guess.clear();
+	    		for (int i = 1; i >= 0; i++){ //sets level
+	    			try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+		    		//creates pattern\\
+	    			score = i;
 		    		sboard.setText(String.valueOf(score));
-					pattern.add(i, (int) (Math.random() * 4) + 1);
-		    		for (int k = 0; k < i; k++){ //display pattern
+					pattern.add(i - 1, (int) (Math.random() * 4) + 1);
+		    		//display pattern\\
+					for (int k = 0; k <= i; k++){ 
+		    			color.setBackground(Color.GRAY);
+			    		color.setOpaque(true);
+			    		try {
+							Thread.sleep(100);
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
 		    			if (pattern.get(k) == 1){
 		    				color.setBackground(Color.red);
 		    				color.setOpaque(true);
+		    				try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e1) {
+								e1.printStackTrace();
+							}
 		    			}
 		    			if (pattern.get(k) == 2){
 		    				color.setBackground(Color.yellow);
 		    				color.setOpaque(true);
+		    				try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e1) {
+								e1.printStackTrace();
+							}
 		    				
 		    			}
 		    			if (pattern.get(k) == 3){
 		    				color.setBackground(Color.green);
 		    				color.setOpaque(true);
+		    				try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e1) {
+								e1.printStackTrace();
+							}
 		    				
 		    			}
 		    			if (pattern.get(k) == 4){
 		    				color.setBackground(Color.blue);
 		    				color.setOpaque(true);
+		    				try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e1) {
+								e1.printStackTrace();
+							}
 		    				
 		    			}
 		    			
-		    		
-		    		
-		    			//take in guess
+		    			color.setBackground(Color.GRAY);
+			    		color.setOpaque(true);
+			    		try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+		    //take in guess\\		
+		    		for (int q = 0; q <= i; q++){	
+		    			int o = q;
 		    		redb.addActionListener(new ActionListener(){
 		    			public void actionPerformed(ActionEvent e){
-		    				guess.add(score, 1);
+		    				guess.add(o, 1);
 		    			}
 		    		});
 		    		blueb.addActionListener(new ActionListener(){
 		    			public void actionPerformed(ActionEvent e){
-		    				guess.add(score, 2);
+		    				guess.add(o, 2);
 		    			}
 		    		});
 		    		greenb.addActionListener(new ActionListener(){
 		    			public void actionPerformed(ActionEvent e){
-		    				guess.add(score, 3);
+		    				guess.add(o, 3);
 		    			}
 		    		});
 		    		yellowb.addActionListener(new ActionListener(){
 		    			public void actionPerformed(ActionEvent e){
-		    				guess.add(score, 4);
+		    				guess.add(o, 4);
 		    			}
 		    		});
-		    		
-		    		
-		    			//asses pattern
-		    		isMatch();
+		    		}
 		    		
 		    		}
+		    		
 		    	}
 		    } while(isMatch());
 	    	
-	    	
-       
-	    
-	    
 	}
 	
 	public boolean isMatch(){	//test to see if guess is accurate
@@ -183,9 +219,6 @@ public class Simon extends JFrame implements ActionListener{
     {
 		
         new Simon();
-        
-        
-        
         
     }
 
