@@ -5,9 +5,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;;;;;;;;;;;;;;;;;;;;;;;;
-import java.util.HashMap;
+import java.util.*;
 
 import javax.swing.*;
 
@@ -18,7 +16,7 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
     JButton b1,b2,b3,b4,b5,b6,b7,b8,b9,sample;
 
-static int gameCt = 0;  //counts to see how many correct images user has placed - if 9, user wins
+    static int gameCt = 0;  //counts to see how many correct images user has placed - if 9, user wins
 
     Icon samicon1=new ImageIcon("images/Wiki Picture.jpeg");
 
@@ -32,7 +30,9 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
     Icon ic8=new ImageIcon("images/Wiki Picture [www.imagesplitter.net]-2-1.jpeg");
     Icon ic9=new ImageIcon("images/Wiki Picture [www.imagesplitter.net]-2-2.jpeg");
 
-   private Icon[] iconList = {ic1,ic2,ic3,ic4,ic5,ic6,ic7,ic8,ic9};        //creating array of icons to be randomized
+    static JLabel countdown = new JLabel();
+
+    private Icon[] iconList = {ic1,ic2,ic3,ic4,ic5,ic6,ic7,ic8,ic9};        //creating array of icons to be randomized
 
     private ArrayList<Integer> intsToBeRandomized = new ArrayList<>();      //list of the order in which icons will be displayed
 
@@ -44,7 +44,11 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
 
     String tempButton = "";         //temp String to hold which button has been clicked
 
+    static String timeLeft = "";           //string to represent number of seconds left
+
     static JFrame win = new JFrame("Good Win!"); //widow that appears when user wins game
+
+    static JFrame lose = new JFrame("Nice try!"); //widow that appears when user loses game
 
 
     PicPuzzle2(){
@@ -96,9 +100,18 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
         sample=new JButton(samicon1);
         sample.setBounds(380,100,200,200);
 
+//----------------------TIMER ATTRIBUTES----------------------\\
 
+        countdown.setSize(100, 50);
+        countdown.setLocation(380, 30);
+        countdown.setText(String.valueOf(timeLeft));
+        add(countdown);
+        countdown.setVisible(true);
+        countdown.setBackground(Color.black);
 
-        Collections.shuffle(intsToBeRandomized);
+        Collections.shuffle(intsToBeRandomized);  //shuffles ints to determine order of icons
+
+//---------------------SETTING BUTTON ICONS AND HASHMAP-------------\\
 
         b1.setIcon(iconList[intsToBeRandomized.get(0)]);
         userMap.put(b1, iconList[intsToBeRandomized.get(0)]);
@@ -175,6 +188,7 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
         win.setBackground(Color.GREEN);
 
         JLabel winText = new JLabel("WOOOOO");
+        winText.setBackground(Color.GREEN);
         winText.setSize(150,150);
         win.add(winText);
         winText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -182,6 +196,22 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
 
         win.toFront();
         win.setAlwaysOnTop(true);
+
+        //------------------------WINDOW THAT APPEARS WHEN USER LOSES GAME----------------------\\
+
+        lose.setVisible(true);
+        lose.setSize(300,300);
+        lose.setLocation((((int) dem.getWidth())/2 - 150), (((int) dem.getHeight())/2 - 150));        //sets size and orientation of victory JFrame
+
+        JLabel loseText = new JLabel("Sorry! You didn't finish in time.");
+        loseText.setBackground(Color.red);
+        winText.setSize(150,150);
+        lose.add(loseText);
+        loseText.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+        lose.toFront();
+        lose.setAlwaysOnTop(true);
 
     }
 
@@ -249,14 +279,24 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
 
     public static void main(String args[]){
 
+        final long START_TIME = System.currentTimeMillis();
+
         new PicPuzzle2();
 
-        while (!gameWon(buttonList)){
+        win.setVisible(false);
+        lose.setVisible(false);
 
-            win.setVisible(false);
+//----------------------TIMER FUNCTIONALITY---------------------\\
+
+        while (System.currentTimeMillis() - START_TIME < 20000) {
+
+            if (gameWon(buttonList)) win.setVisible(true);
+
+            timeLeft = (Integer.toString((int) (System.currentTimeMillis() - START_TIME) / 1000));
+
         }
 
-        win.setVisible(true);
+        if ((!win.isVisible())) lose.setVisible(true);
 
     }//end of main
 
