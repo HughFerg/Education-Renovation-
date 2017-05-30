@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collections;;;;;;;;;;;;;;;;;;;;;;;;
 import java.util.HashMap;
 
 import javax.swing.*;
@@ -198,17 +198,17 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
             firstClick = false;
 
         }
-        else{               //on second click- has to swap the 2 images
+        else {               //on second click- has to swap the 2 images
 
             buttonList.get(Integer.valueOf(tempButton)).setIcon(buttonList.get(Integer.valueOf(e.getActionCommand())).getIcon());        //changes first button's icon into second button's icon
 
             buttonList.get(Integer.valueOf(e.getActionCommand())).setIcon(tempIcon);            //changes second button's icon into temp icon (first button's icon)
 
-            firstClick = true;  //resets click
-
             userMap.replace(buttonList.get(Integer.valueOf(e.getActionCommand())), buttonList.get(Integer.valueOf(e.getActionCommand())).getIcon());        //updates user hashmap with swapped icon
 
-            userMap.replace(buttonList.get(Integer.valueOf(tempButton)), buttonList.get(Integer.valueOf(e.getActionCommand())).getIcon());          //updates user hashmap with original image
+            userMap.replace(buttonList.get(Integer.valueOf(tempButton)), buttonList.get(Integer.valueOf(tempButton)).getIcon());          //updates user hashmap with original image
+
+            firstClick = true;  //resets click
 
         }
 
@@ -218,25 +218,30 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
 
         gameCt = 0;
 
-        if ((userMap.get(b.get(0)).toString()).equals(correctMap.get(1).toString())) gameCt ++;         //checks each icon to see if correct - messy but it works (doesn't work as of now)
 
-        if ((userMap.get(b.get(1)).toString()).equals(correctMap.get(2).toString())) gameCt ++;
+        if ((userMap.get(b.get(0)).toString()).equals(correctMap.get(1).toString()) && //checks each icon to see if correct - messy but it works (doesn't work as of now)
 
-        //if ((userMap.get(b.get(2)).toString()).equals(correctMap.get(3).toString())) gameCt ++;
+        (userMap.get(b.get(1)).toString()).equals(correctMap.get(2).toString()) &&
 
-        //if ((userMap.get(b.get(3)).toString()).equals(correctMap.get(4).toString())) gameCt ++;
+        (userMap.get(b.get(2)).toString()).equals(correctMap.get(3).toString())) gameCt++;
 
-        //if ((userMap.get(b.get(4)).toString()).equals(correctMap.get(5).toString())) gameCt ++;
 
-        //if ((userMap.get(b.get(5)).toString()).equals(correctMap.get(6).toString())) gameCt ++;
+        if ((userMap.get(b.get(3)).toString()).equals(correctMap.get(4).toString()) &&
 
-        //if ((userMap.get(b.get(6)).toString()).equals(correctMap.get(7).toString())) gameCt ++;
+        (userMap.get(b.get(4)).toString()).equals(correctMap.get(5).toString()) &&
 
-        //if ((userMap.get(b.get(7)).toString()).equals(correctMap.get(8).toString())) gameCt ++;
+        (userMap.get(b.get(5)).toString()).equals(correctMap.get(6).toString())) gameCt ++;
 
-        //if ((userMap.get(b.get(8)).toString()).equals(correctMap.get(9).toString())) gameCt ++;
 
-        if (gameCt == 2) return true;
+
+        if ((userMap.get(b.get(6)).toString()).equals(correctMap.get(7).toString()) &&
+
+        (userMap.get(b.get(7)).toString()).equals(correctMap.get(8).toString()) &&
+
+        (userMap.get(b.get(8)).toString()).equals(correctMap.get(9).toString())) gameCt ++;
+
+
+        if (gameCt == 3) return true;
 
         else return false;
 
