@@ -69,25 +69,20 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
         b1=new JButton();
         b1.setBounds(10,80,100,100);
 
-
         b2=new JButton();
         b2.setBounds(110,80,100,100);
-
 
         b3=new JButton();
         b3.setBounds(210,80,100,100);
 
-
         b4=new JButton();
         b4.setBounds(10,180,100,100);
-
 
         b5=new JButton();
         b5.setBounds(110,180,100,100);
 
         b6=new JButton();
         b6.setBounds(210,180,100,100);
-
 
         b7=new JButton();
         b7.setBounds(10,280,100,100);
@@ -96,12 +91,12 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
         b8.setBounds(110,280,100,100);
 
         b9=new JButton();
-
-
         b9.setBounds(210,280,100,100);
 
         sample=new JButton(samicon1);
         sample.setBounds(380,100,200,200);
+
+
 
         Collections.shuffle(intsToBeRandomized);
 
@@ -227,22 +222,21 @@ static int gameCt = 0;  //counts to see how many correct images user has placed 
 
         if ((userMap.get(b.get(1)).toString()).equals(correctMap.get(2).toString())) gameCt ++;
 
-        if ((userMap.get(b.get(2)).toString()).equals(correctMap.get(3).toString())) gameCt ++;
+        //if ((userMap.get(b.get(2)).toString()).equals(correctMap.get(3).toString())) gameCt ++;
 
-        if ((userMap.get(b.get(3)).toString()).equals(correctMap.get(4).toString())) gameCt ++;
+        //if ((userMap.get(b.get(3)).toString()).equals(correctMap.get(4).toString())) gameCt ++;
 
-        if ((userMap.get(b.get(4)).toString()).equals(correctMap.get(5).toString())) gameCt ++;
-/*
-        if ((userMap.get(b.get(5)).toString()).equals(correctMap.get(6).toString())) gameCt ++;
+        //if ((userMap.get(b.get(4)).toString()).equals(correctMap.get(5).toString())) gameCt ++;
 
-        if ((userMap.get(b.get(6)).toString()).equals(correctMap.get(7).toString())) gameCt ++;
+        //if ((userMap.get(b.get(5)).toString()).equals(correctMap.get(6).toString())) gameCt ++;
 
-        if ((userMap.get(b.get(7)).toString()).equals(correctMap.get(8).toString())) gameCt ++;
+        //if ((userMap.get(b.get(6)).toString()).equals(correctMap.get(7).toString())) gameCt ++;
 
-        if ((userMap.get(b.get(8)).toString()).equals(correctMap.get(9).toString())) gameCt ++;
-*/
+        //if ((userMap.get(b.get(7)).toString()).equals(correctMap.get(8).toString())) gameCt ++;
 
-        if (gameCt == 5) return true;
+        //if ((userMap.get(b.get(8)).toString()).equals(correctMap.get(9).toString())) gameCt ++;
+
+        if (gameCt == 2) return true;
 
         else return false;
 
