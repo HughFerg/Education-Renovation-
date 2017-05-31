@@ -1,0 +1,14 @@
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Sel {
+	public static void main(String[] args) {
+		WebDriver web = new ChromeDriver();
+		Selenium selenium = new WebBackedSeleniumDriver(web, "https//:www.google.com");
+	}
+}
+
+
+
+
+http://www.seleniumhq.org/docs/appendix_migrating_from_rc_to_webdriver.jsp
