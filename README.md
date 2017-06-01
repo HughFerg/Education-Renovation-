@@ -9,4 +9,6 @@ GAMES:
 The platform is comprised of 3 games- Simon (for visual learning aptitude), a spoken-word version of Simon (for audial learning aptitude) and a puzzle game (for kinsethetic aptitude).
 COLLABORATORS:
 
-Hugh Ferguson, Joshua Farahzad, Chase Small
+Hugh Ferguson, Chase Small 
+
+(pending: Joshua Farahzad)
