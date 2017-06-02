@@ -20,7 +20,18 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MintBackground" translatesAutoresizingMaskIntoConstraints="NO" id="S0A-5c-IUr">
+                                <rect key="frame" x="0.0" y="20" width="375" height="603"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="S0A-5c-IUr" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="0ws-bq-LkR"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="S0A-5c-IUr" secondAttribute="bottom" id="NhW-bJ-Dvh"/>
+                            <constraint firstAttribute="trailing" secondItem="S0A-5c-IUr" secondAttribute="trailing" id="OVE-rK-gYx"/>
+                            <constraint firstItem="S0A-5c-IUr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TjR-wU-alQ"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -30,4 +41,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="MintBackground" width="300" height="168"/>
+    </resources>
 </document>
