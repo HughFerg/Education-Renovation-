@@ -20,6 +20,13 @@ passwfile = open(passwfile, "r")
 usernameArray = []
 passwordArray = []
 
+try:
+        self.smtp.ehlo()
+        self.smtp.starttls()
+        self.smtp.ehlo
+except:
+        print "No TLS :("
+
 for password in passwfile:
 
     passwordArray.append(password)
@@ -35,8 +42,8 @@ for a in range (0,17):
     try:
         smtpserver.login(usernameArray[a], passwordArray[a])
 
-        print "[+] Login Successful! Username: %s Password: %s" % (usernameArray[a],passwordArray[a])
+        print "[!] Login Successful! Username: %s Password: %s" % (usernameArray[a],passwordArray[a])
 
     except smtplib.SMTPAuthenticationError:
 
-            print "[!] Password Incorrect: %s" % passwordArray[a]
+            print "[X] Password Incorrect: %s" % passwordArray[a]
