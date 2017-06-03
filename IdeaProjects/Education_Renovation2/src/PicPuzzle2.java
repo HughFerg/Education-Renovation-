@@ -30,8 +30,6 @@ class PicPuzzle2 extends JFrame implements ActionListener{
     Icon ic8=new ImageIcon("images/Wiki Picture [www.imagesplitter.net]-2-1.jpeg");
     Icon ic9=new ImageIcon("images/Wiki Picture [www.imagesplitter.net]-2-2.jpeg");
 
-    static JLabel countdown = new JLabel();
-
     private Icon[] iconList = {ic1,ic2,ic3,ic4,ic5,ic6,ic7,ic8,ic9};        //creating array of icons to be randomized
 
     private ArrayList<Integer> intsToBeRandomized = new ArrayList<>();      //list of the order in which icons will be displayed
@@ -44,14 +42,15 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
     String tempButton = "";         //temp String to hold which button has been clicked
 
-    static String timeLeft = "";           //string to represent number of seconds left
+    static String timeLeft = "21";           //string to represent number of seconds left
 
-    static JFrame win = new JFrame("Good Win!"); //widow that appears when user wins game
+    static JFrame win = new JFrame("Nice!"); //widow that appears when user wins game
 
     static JFrame lose = new JFrame("Nice try!"); //widow that appears when user loses game
 
     final long START_TIME = System.currentTimeMillis(); // start time
 
+    static int score;
 
     PicPuzzle2(){
 
@@ -102,18 +101,10 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         sample=new JButton(samicon1);
         sample.setBounds(380,100,200,200);
 
-//----------------------TIMER ATTRIBUTES----------------------\\
-
-        countdown.setSize(100, 50);
-        countdown.setLocation(380, 30);
-        countdown.setText(String.valueOf(timeLeft));
-        add(countdown);
-        countdown.setVisible(true);
-        countdown.setBackground(Color.black);
+//---------------------SETTING BUTTON ICONS AND HASHMAP-------------\\
 
         Collections.shuffle(intsToBeRandomized);  //shuffles ints to determine order of icons
 
-//---------------------SETTING BUTTON ICONS AND HASHMAP-------------\\
 
         b1.setIcon(iconList[intsToBeRandomized.get(0)]);
         userMap.put(b1, iconList[intsToBeRandomized.get(0)]);
@@ -155,11 +146,17 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         buttonList.add(b9);      //adds all buttons to list of buttons
 
 
+
+//----------------------TIMER ATTRIBUTES----------------------\\
+
+        JLabel countdown = new JLabel("Time Left: " + timeLeft);
+        countdown.setBounds(380,30,100,50);
+
         JLabel l1=new JLabel("Original: ");			//creates label for original picture
         l1.setBounds(330,200,70,20);
 
         add(b1);add(b2);add(b3);add(b4);add(b5);add(b6);add(b7);add(b8);
-        add(b9);add(sample);add(l1);
+        add(b9);add(sample);add(l1);add(countdown);
 
 
         b1.addActionListener(this); b1.setActionCommand("0");
@@ -189,12 +186,21 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         win.setLocation((((int) dem.getWidth())/2 - 150), (((int) dem.getHeight())/2 - 150));        //sets size and orientation of victory JFrame
         win.setBackground(Color.GREEN);
 
-        JLabel winText = new JLabel("WOOOOO");
-        winText.setBackground(Color.GREEN);
+        JPanel winFrame = new JPanel();
+        winFrame.setLayout(new GridLayout(2,1));
+        winFrame.setBackground(Color.green);
+
+        JLabel winText = new JLabel("You won!");
         winText.setSize(150,150);
-        win.add(winText);
+        winFrame.add(winText, 0);
         winText.setHorizontalAlignment(SwingConstants.CENTER);
 
+        JLabel scoreLabel = new JLabel(String.valueOf(score));
+        scoreLabel.setSize(150, 100);
+        winFrame.add(scoreLabel, 1);
+        scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        win.add(winFrame);
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         win.toFront();
         win.setAlwaysOnTop(true);
@@ -204,14 +210,17 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
         lose.setVisible(true);
         lose.setSize(300,300);
-        lose.setLocation((((int) dem.getWidth())/2 - 150), (((int) dem.getHeight())/2 - 150));        //sets size and orientation of victory JFrame
+        lose.setLocation((((int) dem.getWidth())/2 - 150), (((int) dem.getHeight())/2 - 150));        //sets size and orientation of losing JFrame
+
+        JPanel loseFrame = new JPanel();
+        loseFrame.setBackground(Color.red);
 
         JLabel loseText = new JLabel("Sorry! You didn't finish in time.");
-        loseText.setBackground(Color.red);
         winText.setSize(150,150);
-        lose.add(loseText);
         loseText.setHorizontalAlignment(SwingConstants.CENTER);
+        loseFrame.add(loseText);
 
+        lose.add(loseFrame);
         lose.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         lose.toFront();
         lose.setAlwaysOnTop(true);
@@ -220,11 +229,18 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
         //----------------------TIMER FUNCTIONALITY---------------------\\
 
-        while (System.currentTimeMillis() - START_TIME < 20000) {
+        while (System.currentTimeMillis() - START_TIME <= 20000) {
 
-            if (gameWon(buttonList)) win.setVisible(true);
+            timeLeft = (Integer.toString((int) (21 - (System.currentTimeMillis() - START_TIME) / 1000)));
+            countdown.setText("Time Left: " + timeLeft);
 
-            timeLeft = (Integer.toString((int) (System.currentTimeMillis() - START_TIME) / 1000));
+            if (gameWon(buttonList))
+            {
+                score = (int) (21 - (System.currentTimeMillis() - START_TIME) / 1000);
+                scoreLabel.setText("Your Score: " + String.valueOf(score));
+                win.setVisible(true);
+            }
+
 
         }
 
