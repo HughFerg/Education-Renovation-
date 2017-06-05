@@ -177,7 +177,6 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         Dimension dem = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((((int) dem.getWidth())/2 - 300), (((int) dem.getHeight())/2 - 250));       //sets frame location to middle of screen
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //------------------------WINDOW THAT APPEARS WHEN USER WINS GAME----------------------\\
 
@@ -226,7 +225,6 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         lose.setAlwaysOnTop(true);
         lose.setVisible(false);
 
-
         //----------------------TIMER FUNCTIONALITY---------------------\\
 
         while (System.currentTimeMillis() - START_TIME <= 20000) {
@@ -244,7 +242,9 @@ class PicPuzzle2 extends JFrame implements ActionListener{
 
         }
 
-        if ((!win.isVisible())) lose.setVisible(true);
+        if ((!win.isVisible())) {
+            lose.setVisible(true);
+        }
     }
 
 //-------------------------GAME OPERATIONS------------------------\\
@@ -308,11 +308,5 @@ class PicPuzzle2 extends JFrame implements ActionListener{
         else return false;
 
     }
-
-    public static void main(String args[]){
-
-        new PicPuzzle2();
-
-    }//end of main
 
 }//end of class

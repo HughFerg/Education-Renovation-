@@ -13,7 +13,7 @@ public class Simon extends JFrame implements ActionListener {
 
 	ArrayList<Integer> pattern = new ArrayList<>();
 	ArrayList<Integer> guess = new ArrayList<>();
-	private static int number = 0;
+	public static int number = 0;
 	JLabel sboard;
 	JLabel color;
 	JButton redb;
@@ -21,11 +21,11 @@ public class Simon extends JFrame implements ActionListener {
 	JButton yellowb;
 	JButton greenb;
 
+
 	Simon() {
 		super("Visual Learner Type Test");
 		setSize(1280, 720);
 		requestFocus();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setLayout(new GridBagLayout());    //create JPanel with GridBagLayout
 		GridBagConstraints c = new GridBagConstraints();
@@ -186,13 +186,9 @@ public class Simon extends JFrame implements ActionListener {
 		return pattern.equals(guess);
 	}
 
-
-	public static void main(String[] args) {
-		new Simon();
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		Runnable r = () -> {
 			guess.add(Integer.parseInt(e.getActionCommand()));
 			if (guess.size() == number) {

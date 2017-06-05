@@ -7,46 +7,39 @@ public class DictatorGame
 
 {
 
-    public static void main (String[] args)
+    public static int score = 0;
 
-    {
+    public static void start() {
 
-        JOptionPane.showMessageDialog( null," DICTATOR SAYS GAME");
+        JOptionPane.showMessageDialog(null, " DICTATOR SAYS GAME");
 
-        String name = JOptionPane.showInputDialog(null,"Type in your name");
+        String name = JOptionPane.showInputDialog(null, "Type in your name");
 
         String name1 = JOptionPane.showInputDialog(name, "Are you Ready ?");
 
-        String name2= JOptionPane.showInputDialog(name1, "Are you sure?");
+        String name2 = JOptionPane.showInputDialog(name1, "Are you sure?");
 
 
-        if(!name2.equals("yes") && name1.equals("yes"))
+        if (!name2.equals("yes") && name1.equals("yes"))
 
         {
 
-            JOptionPane.showMessageDialog(null,"Whatever, Good Bye!");
+            JOptionPane.showMessageDialog(null, "Whatever, Good Bye!");
 
             return;
 
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Let's see what you've got");
+            go();
         }
-
-        else{
-
-            JOptionPane.showMessageDialog(null, "Let's see what you've got" );
-
-            DictatorGame gamer = new DictatorGame();
-
-            gamer.go();
-
-        }
-
     }
 
-    public void go()
+    public static void go()
 
     {
 
-        String[] dictators = { "Ingrid ", "Victor ", "Randy ", "Steven ", "John ", "Dora ", "Allen ", "Elaine "};
+        String[] dictators = { "Ingrid", "Victor", "Randy", "Dora", "Allen"};
 
         String[] feedback ={"GOOD JOB","BRAVO ","WELL DONE","YOU GOT IT!","YOU'RE GOOD","OK, THAT WAS EASY",
 
@@ -85,8 +78,6 @@ public class DictatorGame
         JOptionPane.showMessageDialog(null,dictators[d]+ " is today's dictator" );
 
         int x;
-
-        int score = 0;
 
         for(x=0;x< 200; x++)
 
@@ -142,6 +133,8 @@ public class DictatorGame
 
                         JOptionPane.showMessageDialog(
                                 null,"Good Bye!");
+
+
 
                         break;
 
