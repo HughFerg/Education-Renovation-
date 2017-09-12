@@ -7,6 +7,8 @@ Create a platform that uses brain games to develop an understanding of what kind
 GAMES:
 
 The platform is comprised of 3 games- Simon (for visual learning aptitude), a spoken-word version of Simon (for audial learning aptitude) and a puzzle game (for kinsethetic aptitude).
+
+
 COLLABORATORS:
 
 Hugh Ferguson, Chase Small 
